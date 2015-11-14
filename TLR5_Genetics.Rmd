@@ -7,7 +7,7 @@ output: html_document
 
 ##Analysis Plan
 
-We will analyze SORCS2 genotypes using a robust, R-based reproducible research approach. 
+We will analyze TLR5 genotypes using a robust, R-based reproducible research approach. 
 
 We will keep all of our work in one R Markdown document: TLR5_Genetics.Rmd.  
 
