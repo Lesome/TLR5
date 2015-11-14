@@ -42,11 +42,31 @@ Our goal, which we may or may not achieve, will be to have an analysis in the Rm
     + http://pngu.mgh.harvard.edu/~purcell/plink/
     
 ###Responsibility for Specific Analysis Steps:
-1. Steve will read in existing well-documented TLR% dataset(s)
+1. Steve will read in existing well-documented TLR5 dataset(s) and show some exploratory data on them
 2. Steve will provide the initial Rmd file which will have useful "template" information
 3. Ben and Leonie will develop the Rmd file to meet the goals of our Analysis Plan.
     + Create Figure 1 showing a TLR5 gene diagram with information on SNP location etc.
     + Clean up
+
+###Steve's Content
+
+```{r, echo=T, eval=T}
+
+        #load requisite packages       
+library(data.table)
+suppressWarnings(suppressMessages(library(dplyr)))
+
+list.files()
+
+        #read in and explore Joseph's ADSP TLR5 flat file        
+data <- read.table("TLR5_flat_file.txt", header=T, stringsAsFactors=F)
+str(data); head(data);tail(data)
+snps <- c("rs56243703","rs5744168","rs5744174","rs5744175","rs5744177")
+call <- c(11,12,22)
+x <- data %>% filter (SNP_ID %in% snps, Call %in% call) %>% group_by(SNP_ID,Call) %>% summarize (n())
+print.data.frame(x)                     
+```
+
 
 ###Ben and Leonie's Content
 
@@ -835,7 +855,7 @@ all.cm <- left_join(all.cm, lgen.cm, by="IID")
 #print(x,row.names=F)
 ```
 
-###Ben and Leonie's Content for Making Figure 1
+####Ben and Leonie's Content for Making Figure 1
 ```{r, eval=F}
 ![](20151112 genemap.png)
 

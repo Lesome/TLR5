@@ -121,7 +121,7 @@ img {
 <div id="responsibility-for-specific-analysis-steps" class="section level3">
 <h3>Responsibility for Specific Analysis Steps:</h3>
 <ol style="list-style-type: decimal">
-<li>Steve will read in existing well-documented TLR% dataset(s)</li>
+<li>Steve will read in existing well-documented TLR5 dataset(s) and show some exploratory data on them</li>
 <li>Steve will provide the initial Rmd file which will have useful “template” information</li>
 <li>Ben and Leonie will develop the Rmd file to meet the goals of our Analysis Plan.
 <ul>
@@ -129,6 +129,82 @@ img {
 <li>Clean up</li>
 </ul></li>
 </ol>
+</div>
+<div id="steves-content" class="section level3">
+<h3>Steve’s Content</h3>
+<pre class="r"><code>        #load requisite packages       
+library(data.table)
+suppressWarnings(suppressMessages(library(dplyr)))
+
+list.files()</code></pre>
+<pre><code>## [1] &quot;~$01AG046139-01 Progress report Revised TEG_SGY_09-16-14_1750 (3).docx&quot;
+## [2] &quot;1U01AG046139-01 Progress report Revised TEG_SGY_09-16-14_1750 (3).docx&quot;
+## [3] &quot;TLR5&quot;                                                                  
+## [4] &quot;TLR5_flat_file.txt&quot;                                                    
+## [5] &quot;TLR5_Genetics.html&quot;                                                    
+## [6] &quot;TLR5_Genetics.Rmd&quot;</code></pre>
+<pre class="r"><code>        #read in and explore Joseph's ADSP TLR5 flat file        
+data &lt;- read.table(&quot;TLR5_flat_file.txt&quot;, header=T, stringsAsFactors=F)
+str(data); head(data);tail(data)</code></pre>
+<pre><code>## 'data.frame':    21000 obs. of  16 variables:
+##  $ Subject_ID  : chr  &quot;SRR1198015&quot; &quot;SRR1198016&quot; &quot;SRR1267825&quot; &quot;SRR1267826&quot; ...
+##  $ Series      : chr  &quot;ADSP&quot; &quot;ADSP&quot; &quot;ADSP&quot; &quot;ADSP&quot; ...
+##  $ Sex         : int  0 0 1 0 0 0 1 1 1 1 ...
+##  $ Age         : num  64 71 85 87.3 82.2 ...
+##  $ Case.control: int  2 2 1 1 1 1 1 1 0 0 ...
+##  $ APOE        : int  34 34 23 33 33 33 34 33 33 33 ...
+##  $ Gene        : chr  &quot;TLR5&quot; &quot;TLR5&quot; &quot;TLR5&quot; &quot;TLR5&quot; ...
+##  $ SNP_ID      : chr  &quot;rs5744177&quot; &quot;rs5744177&quot; &quot;rs5744177&quot; &quot;rs5744177&quot; ...
+##  $ CHR         : chr  &quot;chr1&quot; &quot;chr1&quot; &quot;chr1&quot; &quot;chr1&quot; ...
+##  $ Position    : int  223283837 223283837 223283837 223283837 223283837 223283837 223283837 223283837 223283837 223283837 ...
+##  $ Ref         : chr  &quot;T&quot; &quot;T&quot; &quot;T&quot; &quot;T&quot; ...
+##  $ Alt         : chr  &quot;C&quot; &quot;C&quot; &quot;C&quot; &quot;C&quot; ...
+##  $ Codon       : chr  &quot;gAc/gGc&quot; &quot;gAc/gGc&quot; &quot;gAc/gGc&quot; &quot;gAc/gGc&quot; ...
+##  $ AA          : chr  &quot;D846G&quot; &quot;D846G&quot; &quot;D846G&quot; &quot;D846G&quot; ...
+##  $ Call        : int  11 11 11 11 11 11 11 11 11 11 ...
+##  $ Genotype    : chr  &quot;0/0&quot; &quot;0/0&quot; &quot;0/0&quot; &quot;0/0&quot; ...</code></pre>
+<pre><code>##   Subject_ID Series Sex      Age Case.control APOE Gene    SNP_ID  CHR
+## 1 SRR1198015   ADSP   0 64.00000            2   34 TLR5 rs5744177 chr1
+## 2 SRR1198016   ADSP   0 71.00000            2   34 TLR5 rs5744177 chr1
+## 3 SRR1267825   ADSP   1 84.98015            1   23 TLR5 rs5744177 chr1
+## 4 SRR1267826   ADSP   0 87.29911            1   33 TLR5 rs5744177 chr1
+## 5 SRR1267827   ADSP   0 82.17659            1   33 TLR5 rs5744177 chr1
+## 6 SRR1267828   ADSP   0 90.81999            1   33 TLR5 rs5744177 chr1
+##    Position Ref Alt   Codon    AA Call Genotype
+## 1 223283837   T   C gAc/gGc D846G   11      0/0
+## 2 223283837   T   C gAc/gGc D846G   11      0/0
+## 3 223283837   T   C gAc/gGc D846G   11      0/0
+## 4 223283837   T   C gAc/gGc D846G   11      0/0
+## 5 223283837   T   C gAc/gGc D846G   11      0/0
+## 6 223283837   T   C gAc/gGc D846G   11      0/0</code></pre>
+<pre><code>##       Subject_ID Series Sex Age Case.control APOE Gene   SNP_ID  CHR
+## 20995 SRR1578802   ADSP   1  80            1   33 TLR5 rs764535 chr1
+## 20996 SRR1578822   ADSP   0  84            0   33 TLR5 rs764535 chr1
+## 20997 SRR1578829   ADSP   1  70            1   34 TLR5 rs764535 chr1
+## 20998 SRR1578839   ADSP   0  65            1   33 TLR5 rs764535 chr1
+## 20999 SRR1578847   ADSP   1  65            1   33 TLR5 rs764535 chr1
+## 21000 SRR1578852   ADSP   1  63            1   34 TLR5 rs764535 chr1
+##        Position Ref Alt   Codon   AA Call Genotype
+## 20995 223286129   G   A aCc/aTc T82I   11      0/0
+## 20996 223286129   G   A aCc/aTc T82I   11      0/0
+## 20997 223286129   G   A aCc/aTc T82I   11      0/0
+## 20998 223286129   G   A aCc/aTc T82I   11      0/0
+## 20999 223286129   G   A aCc/aTc T82I   11      0/0
+## 21000 223286129   G   A aCc/aTc T82I   11      0/0</code></pre>
+<pre class="r"><code>snps &lt;- c(&quot;rs56243703&quot;,&quot;rs5744168&quot;,&quot;rs5744174&quot;,&quot;rs5744175&quot;,&quot;rs5744177&quot;)
+call &lt;- c(11,12,22)
+x &lt;- data %&gt;% filter (SNP_ID %in% snps, Call %in% call) %&gt;% group_by(SNP_ID,Call) %&gt;% summarize (n())
+print.data.frame(x)                     </code></pre>
+<pre><code>##       SNP_ID Call n()
+## 1 rs56243703   11 990
+## 2 rs56243703   12  10
+## 3  rs5744174   11 307
+## 4  rs5744174   12 504
+## 5  rs5744174   22 189
+## 6  rs5744175   11 979
+## 7  rs5744175   12  20
+## 8  rs5744177   11 980
+## 9  rs5744177   12  20</code></pre>
 </div>
 <div id="ben-and-leonies-content" class="section level3">
 <h3>Ben and Leonie’s Content</h3>
@@ -171,12 +247,12 @@ img {
 <div id="compare-sorcs2-datasets-chris-medway-vs.current-ydb" class="section level4">
 <h4>Compare SORCS2 datasets: Chris Medway vs. current Ydb</h4>
 </div>
-</div>
-<div id="ben-and-leonies-content-for-making-figure-1" class="section level3">
-<h3>Ben and Leonie’s Content for Making Figure 1</h3>
+<div id="ben-and-leonies-content-for-making-figure-1" class="section level4">
+<h4>Ben and Leonie’s Content for Making Figure 1</h4>
 <pre class="r"><code>![](20151112 genemap.png)
 
 &lt;span style=&quot;color:grey&quot;&gt;&lt;font size=&quot;0.8&quot;&gt;__*Figure 1* | SorCS2 gene diagram. A)__ Position of SorCS2 on chromosome 4 (red box). __B)__ SorCS2 gene intron-exon layout. Exon length 100x magnified, exons containing the SNPs of interest highlighted in green. Zoomed in on relative position of SNPs of interest on exons 7, 16 and 17. __C)__ Relative position of SNPs of interest on SorCS2 protein. Domains highlighted and indicated.&lt;/font&gt;&lt;/span&gt;</code></pre>
+</div>
 </div>
 <div id="josephs-content" class="section level3">
 <h3>Joseph’s Content</h3>
