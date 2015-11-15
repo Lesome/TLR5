@@ -45,8 +45,10 @@ Our goal, which we may or may not achieve, will be to have an analysis in the Rm
 1. Steve will read in existing well-documented TLR5 dataset(s) and show some exploratory data on them
 2. Steve will provide the initial Rmd file which will have useful "template" information
 3. Ben and Leonie will develop the Rmd file to meet the goals of our Analysis Plan.
+    + Focus intially on TLR5 missense SNPs with MAF >=1%
+         + "rs56243703","rs5744168","rs5744174","rs5744175","rs5744177"
     + Create Figure 1 showing a TLR5 gene diagram with information on SNP location etc.
-    + Clean up
+    + Revise template Rmd as needed to run analysis on 5 missense SNPs with MAF >= 1%.
 
 ###Steve's Content
 
@@ -64,7 +66,15 @@ str(data); head(data);tail(data)
 snps <- c("rs56243703","rs5744168","rs5744174","rs5744175","rs5744177")
 call <- c(11,12,22)
 x <- data %>% filter (SNP_ID %in% snps, Call %in% call) %>% group_by(SNP_ID,Call) %>% summarize (n())
-print.data.frame(x)                     
+print.data.frame(x) 
+
+        #read in and explore Ydb TLR5 flat file        
+data <- read.table("TLR5.csv", sep=",",header=T, stringsAsFactors=F)
+str(data); head(data);tail(data)
+snps <- c("rs56243703","rs5744168","rs5744174","rs5744175","rs5744177")
+call <- c(11,12,22)
+x <- data %>% filter (rs %in% snps, Call %in% call) %>% group_by(rs,Call) %>% summarize (n())
+print.data.frame(x) 
 ```
 
 
