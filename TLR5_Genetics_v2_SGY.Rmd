@@ -127,7 +127,8 @@ ydb2plink <- function(input="TLR5.csv", output="TLR5.Ydb") {
         print.data.frame(map)
         map <- filter(map,!rs=="NULL") #Remove Indels (rs=NULL), genotyping was unreliable.
         print.data.frame(map)
-        snps <- c("rs56243703","rs5744168","rs5744174","rs5744175","rs5744177")
+        #snps1 <- c("rs56243703","rs5744168","rs5744174","rs5744175","rs5744177")
+        snps <- c("rs56243703","rs5744174","rs5744175","rs5744177")
         map <- map %>% filter(rs %in% snps)
         map <- mutate(map,morgans=0)
         map <- rename(map, bp=position)
@@ -237,7 +238,7 @@ ydb2plink <- function(input="TLR5.csv", output="TLR5.Ydb") {
         
         assoc <- paste("plink",sep=" ","--lfile", output, "--assoc", "--ci 0.95", "--out", output)
         logistic <- paste("plink",sep=" ","--lfile", output, "--logistic", "--covar", out3, "--covar-name RS,AUT,SEX,Age,APOE4dose,APOE2dose", "--ci 0.95", "--mhf 0.007 --out", output)
-        haplog <- paste("plink",sep=" ","--lfile", output, "--hap-window 5 --hap-logistic", "--covar", out3, "--covar-name RS,AUT,SEX,Age,APOE4dose,APOE2dose", "--ci 0.95", "--mhf 0.007 --out", output)
+        haplog <- paste("plink",sep=" ","--lfile", output, "--hap-window 4 --hap-logistic", "--covar", out3, "--covar-name RS,AUT,SEX,Age,APOE4dose,APOE2dose", "--ci 0.95", "--mhf 0.004 --out", output)
 
         assocfile <- paste(output,sep="",".assoc")
         logisfile <- paste(output,sep="",".assoc.logistic")
@@ -270,7 +271,7 @@ ydb2plink <- function(input="TLR5.csv", output="TLR5.Ydb") {
         print(f4,digits=2, row.names=F)
         print("", quote=F)
 
-        hapomni <- paste("plink",sep=" ","--lfile", output, "--hap-window 5 --hap-logistic", "--covar", out3, "--covar-name RS,AUT,SEX,Age,APOE4dose,APOE2dose", "--ci 0.95", "--mhf 0.007 --hap-omnibus --out", output)
+        hapomni <- paste("plink",sep=" ","--lfile", output, "--hap-window 4 --hap-logistic", "--covar", out3, "--covar-name RS,AUT,SEX,Age,APOE4dose,APOE2dose", "--ci 0.95", "--mhf 0.004 --hap-omnibus --out", output)
         system(hapomni)
         f4 <- read.table(haplogfile, header=T)
         f4 <- f4 %>% rename(Pomni=P)
@@ -331,7 +332,8 @@ adsp2plink <- function(input="TLR5_flat_file.txt", output="TLR5.adsp") {
         map <- rename(map, bp=Position, rs=SNP_ID)
         map <- select(map,chr,rs,morgans,bp)
         map <- distinct(map)
-        snps <- c("rs56243703","rs5744168","rs5744174","rs5744175","rs5744177")
+        #snps1 <- c("rs56243703","rs5744168","rs5744174","rs5744175","rs5744177")
+        snps <- c("rs56243703","rs5744174","rs5744175","rs5744177")
         map <- filter(map,rs %in% snps )
         print(map)
         write.table(map,out1,sep='\t',quote=FALSE,row.names=F,col.names=F)
@@ -562,7 +564,7 @@ ydb2plink(input="TLR5.csv", output="TLR5.Ydb")
 
 ####Analyze TLR5 dataset from ADSP
 ```{r, eval=T}
-adsp2plink(input="TLR5_flat_file.txt", output="TLR5.adsp")
+adsp2plink(input="TLR5_flat_file 3000.txt", output="TLR5_3000.adsp")
 #print(assoc)
 ```
 
