@@ -141,13 +141,25 @@ library(data.table)
 suppressWarnings(suppressMessages(library(dplyr)))
 
 list.files()</code></pre>
-<pre><code>## [1] &quot;1U01AG046139-01 Progress report Revised TEG_SGY_09-16-14_1750 (3).docx&quot;
-## [2] &quot;TLR5.csv&quot;                                                              
-## [3] &quot;TLR5.csv.xlsx&quot;                                                         
-## [4] &quot;TLR5_11-15-15-0954.xlsx&quot;                                               
-## [5] &quot;TLR5_flat_file.txt&quot;                                                    
-## [6] &quot;TLR5_Genetics.html&quot;                                                    
-## [7] &quot;TLR5_Genetics.Rmd&quot;</code></pre>
+<pre><code>##  [1] &quot;1U01AG046139-01 Progress report Revised TEG_SGY_09-16-14_1750 (3).docx&quot;
+##  [2] &quot;ADSPSubjectsWithCovariatesForSteve_Jez_11172015.csv&quot;                   
+##  [3] &quot;TLR5.csv&quot;                                                              
+##  [4] &quot;TLR5.csv.xlsx&quot;                                                         
+##  [5] &quot;TLR5.Ydb.assoc&quot;                                                        
+##  [6] &quot;TLR5.Ydb.assoc.hap.logistic&quot;                                           
+##  [7] &quot;TLR5.Ydb.assoc.logistic&quot;                                               
+##  [8] &quot;TLR5.Ydb.fam&quot;                                                          
+##  [9] &quot;TLR5.Ydb.lgen&quot;                                                         
+## [10] &quot;TLR5.Ydb.log&quot;                                                          
+## [11] &quot;TLR5.Ydb.map&quot;                                                          
+## [12] &quot;TLR5.Ydb.plink.csv&quot;                                                    
+## [13] &quot;TLR5.Ydb_cov.txt&quot;                                                      
+## [14] &quot;TLR5_11-15-15-0954.xlsx&quot;                                               
+## [15] &quot;TLR5_flat_file.txt&quot;                                                    
+## [16] &quot;TLR5_Genetics.html&quot;                                                    
+## [17] &quot;TLR5_Genetics.Rmd&quot;                                                     
+## [18] &quot;TLR5_Genetics_v2_SGY.html&quot;                                             
+## [19] &quot;TLR5_Genetics_v2_SGY.Rmd&quot;</code></pre>
 <pre class="r"><code>        #read in and explore Joseph's ADSP TLR5 flat file        
 data &lt;- read.table(&quot;TLR5_flat_file.txt&quot;, header=T, stringsAsFactors=F)
 str(data); head(data);tail(data)</code></pre>

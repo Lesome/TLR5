@@ -141,26 +141,44 @@ library(data.table)
 suppressWarnings(suppressMessages(library(dplyr)))
 
 list.files()</code></pre>
-<pre><code>##  [1] &quot;~$01AG046139-01 Progress report Revised TEG_SGY_09-16-14_1750 (3).docx&quot;
-##  [2] &quot;~$TLR5_11-15-15-0954.xlsx&quot;                                             
-##  [3] &quot;1U01AG046139-01 Progress report Revised TEG_SGY_09-16-14_1750 (3).docx&quot;
-##  [4] &quot;TLR5.csv&quot;                                                              
-##  [5] &quot;TLR5.csv.xlsx&quot;                                                         
-##  [6] &quot;TLR5.Ydb.assoc&quot;                                                        
-##  [7] &quot;TLR5.Ydb.assoc.hap.logistic&quot;                                           
-##  [8] &quot;TLR5.Ydb.assoc.logistic&quot;                                               
-##  [9] &quot;TLR5.Ydb.fam&quot;                                                          
-## [10] &quot;TLR5.Ydb.lgen&quot;                                                         
-## [11] &quot;TLR5.Ydb.log&quot;                                                          
-## [12] &quot;TLR5.Ydb.map&quot;                                                          
-## [13] &quot;TLR5.Ydb.plink.csv&quot;                                                    
-## [14] &quot;TLR5.Ydb_cov.txt&quot;                                                      
-## [15] &quot;TLR5_11-15-15-0954.xlsx&quot;                                               
-## [16] &quot;TLR5_flat_file.txt&quot;                                                    
-## [17] &quot;TLR5_Genetics.html&quot;                                                    
-## [18] &quot;TLR5_Genetics.Rmd&quot;                                                     
-## [19] &quot;TLR5_Genetics_v2_SGY.html&quot;                                             
-## [20] &quot;TLR5_Genetics_v2_SGY.Rmd&quot;</code></pre>
+<pre><code>##  [1] &quot;1U01AG046139-01 Progress report Revised TEG_SGY_09-16-14_1750 (3).docx&quot;
+##  [2] &quot;ADSPSubjectsWithCovariatesForSteve_Jez_11172015.csv&quot;                   
+##  [3] &quot;TLR5.adsp.assoc&quot;                                                       
+##  [4] &quot;TLR5.adsp.assoc.hap.logistic&quot;                                          
+##  [5] &quot;TLR5.adsp.assoc.logistic&quot;                                              
+##  [6] &quot;TLR5.adsp.fam&quot;                                                         
+##  [7] &quot;TLR5.adsp.lgen&quot;                                                        
+##  [8] &quot;TLR5.adsp.log&quot;                                                         
+##  [9] &quot;TLR5.adsp.map&quot;                                                         
+## [10] &quot;TLR5.adsp.plink.csv&quot;                                                   
+## [11] &quot;TLR5.adsp_cov.txt&quot;                                                     
+## [12] &quot;TLR5.csv&quot;                                                              
+## [13] &quot;TLR5.csv.xlsx&quot;                                                         
+## [14] &quot;TLR5.Ydb.assoc&quot;                                                        
+## [15] &quot;TLR5.Ydb.assoc.hap.logistic&quot;                                           
+## [16] &quot;TLR5.Ydb.assoc.logistic&quot;                                               
+## [17] &quot;TLR5.Ydb.fam&quot;                                                          
+## [18] &quot;TLR5.Ydb.lgen&quot;                                                         
+## [19] &quot;TLR5.Ydb.log&quot;                                                          
+## [20] &quot;TLR5.Ydb.map&quot;                                                          
+## [21] &quot;TLR5.Ydb.plink.csv&quot;                                                    
+## [22] &quot;TLR5.Ydb_cov.txt&quot;                                                      
+## [23] &quot;TLR5_11-15-15-0954.xlsx&quot;                                               
+## [24] &quot;TLR5_3000.adsp.assoc&quot;                                                  
+## [25] &quot;TLR5_3000.adsp.assoc.hap.logistic&quot;                                     
+## [26] &quot;TLR5_3000.adsp.assoc.logistic&quot;                                         
+## [27] &quot;TLR5_3000.adsp.fam&quot;                                                    
+## [28] &quot;TLR5_3000.adsp.lgen&quot;                                                   
+## [29] &quot;TLR5_3000.adsp.log&quot;                                                    
+## [30] &quot;TLR5_3000.adsp.map&quot;                                                    
+## [31] &quot;TLR5_3000.adsp.plink.csv&quot;                                              
+## [32] &quot;TLR5_3000.adsp_cov.txt&quot;                                                
+## [33] &quot;TLR5_flat_file 3000.txt&quot;                                               
+## [34] &quot;TLR5_flat_file.txt&quot;                                                    
+## [35] &quot;TLR5_Genetics.html&quot;                                                    
+## [36] &quot;TLR5_Genetics.Rmd&quot;                                                     
+## [37] &quot;TLR5_Genetics_v2_SGY.html&quot;                                             
+## [38] &quot;TLR5_Genetics_v2_SGY.Rmd&quot;</code></pre>
 <pre class="r"><code>        #read in and explore Joseph's ADSP TLR5 flat file        
 data &lt;- read.table(&quot;TLR5_flat_file.txt&quot;, header=T, stringsAsFactors=F)
 str(data); head(data);tail(data)</code></pre>
@@ -330,7 +348,8 @@ ydb2plink &lt;- function(input=&quot;TLR5.csv&quot;, output=&quot;TLR5.Ydb&quot;
         print.data.frame(map)
         map &lt;- filter(map,!rs==&quot;NULL&quot;) #Remove Indels (rs=NULL), genotyping was unreliable.
         print.data.frame(map)
-        snps &lt;- c(&quot;rs56243703&quot;,&quot;rs5744168&quot;,&quot;rs5744174&quot;,&quot;rs5744175&quot;,&quot;rs5744177&quot;)
+        #snps1 &lt;- c(&quot;rs56243703&quot;,&quot;rs5744168&quot;,&quot;rs5744174&quot;,&quot;rs5744175&quot;,&quot;rs5744177&quot;)
+        snps &lt;- c(&quot;rs56243703&quot;,&quot;rs5744174&quot;,&quot;rs5744175&quot;,&quot;rs5744177&quot;)
         map &lt;- map %&gt;% filter(rs %in% snps)
         map &lt;- mutate(map,morgans=0)
         map &lt;- rename(map, bp=position)
@@ -440,7 +459,7 @@ ydb2plink &lt;- function(input=&quot;TLR5.csv&quot;, output=&quot;TLR5.Ydb&quot;
         
         assoc &lt;- paste(&quot;plink&quot;,sep=&quot; &quot;,&quot;--lfile&quot;, output, &quot;--assoc&quot;, &quot;--ci 0.95&quot;, &quot;--out&quot;, output)
         logistic &lt;- paste(&quot;plink&quot;,sep=&quot; &quot;,&quot;--lfile&quot;, output, &quot;--logistic&quot;, &quot;--covar&quot;, out3, &quot;--covar-name RS,AUT,SEX,Age,APOE4dose,APOE2dose&quot;, &quot;--ci 0.95&quot;, &quot;--mhf 0.007 --out&quot;, output)
-        haplog &lt;- paste(&quot;plink&quot;,sep=&quot; &quot;,&quot;--lfile&quot;, output, &quot;--hap-window 5 --hap-logistic&quot;, &quot;--covar&quot;, out3, &quot;--covar-name RS,AUT,SEX,Age,APOE4dose,APOE2dose&quot;, &quot;--ci 0.95&quot;, &quot;--mhf 0.007 --out&quot;, output)
+        haplog &lt;- paste(&quot;plink&quot;,sep=&quot; &quot;,&quot;--lfile&quot;, output, &quot;--hap-window 4 --hap-logistic&quot;, &quot;--covar&quot;, out3, &quot;--covar-name RS,AUT,SEX,Age,APOE4dose,APOE2dose&quot;, &quot;--ci 0.95&quot;, &quot;--mhf 0.004 --out&quot;, output)
 
         assocfile &lt;- paste(output,sep=&quot;&quot;,&quot;.assoc&quot;)
         logisfile &lt;- paste(output,sep=&quot;&quot;,&quot;.assoc.logistic&quot;)
@@ -473,7 +492,7 @@ ydb2plink &lt;- function(input=&quot;TLR5.csv&quot;, output=&quot;TLR5.Ydb&quot;
         print(f4,digits=2, row.names=F)
         print(&quot;&quot;, quote=F)
 
-        hapomni &lt;- paste(&quot;plink&quot;,sep=&quot; &quot;,&quot;--lfile&quot;, output, &quot;--hap-window 5 --hap-logistic&quot;, &quot;--covar&quot;, out3, &quot;--covar-name RS,AUT,SEX,Age,APOE4dose,APOE2dose&quot;, &quot;--ci 0.95&quot;, &quot;--mhf 0.007 --hap-omnibus --out&quot;, output)
+        hapomni &lt;- paste(&quot;plink&quot;,sep=&quot; &quot;,&quot;--lfile&quot;, output, &quot;--hap-window 4 --hap-logistic&quot;, &quot;--covar&quot;, out3, &quot;--covar-name RS,AUT,SEX,Age,APOE4dose,APOE2dose&quot;, &quot;--ci 0.95&quot;, &quot;--mhf 0.004 --hap-omnibus --out&quot;, output)
         system(hapomni)
         f4 &lt;- read.table(haplogfile, header=T)
         f4 &lt;- f4 %&gt;% rename(Pomni=P)
@@ -481,15 +500,177 @@ ydb2plink &lt;- function(input=&quot;TLR5.csv&quot;, output=&quot;TLR5.Ydb&quot;
         print(&quot;&quot;, quote=F)
 }</code></pre>
 </div>
-<div id="function-adsp2plink-to-read-in-and-analyze-adsp-sorcs2-dataset" class="section level4">
-<h4>Function (adsp2plink) to read in and analyze ADSP SORCS2 dataset</h4>
-<p>The data we have on the 4 common SORCS2 missense variants in our ADSP dataset was captured by Joseph Reddy in a flatfile (SORCS2_ff.txt) as described in his section below. I read in the dataset (SORCS2_ff.txt) from the SORSC2 repo.The following function reads the data in, creates PLINK, files and then analyzes them in PLINK as for the SORCS2 dataset from the Younkin database.</p>
+<div id="function-adsp2plink-to-read-in-and-analyze-adsp-tlr5-dataset" class="section level4">
+<h4>Function (adsp2plink) to read in and analyze ADSP TLR5 dataset</h4>
+<p>The data we have on the 5 common TLR5 missense variants in our ADSP dataset was captured by Joseph Reddy in a flatfile (TLR5_ff.txt) as described in his section below. I read in the dataset (TLR5_ff.txt) from the TLR5 repo.The following function reads the data in, creates PLINK, files and then analyzes them in PLINK as for the TLR5 dataset from the Younkin database.</p>
+<pre class="r"><code>        #Create function that (i) reads in the ADSP dataset generated by Joseph Reddy, (ii) outputs PLINK map, fam, cov.txt, and lgen files,
+        #(iii) analyzes in PLINK using --assoc, as well as --logistic, and --hap-logistic with appropriate covariates, 
+        #(iv) prints out well organized results
+        
+adsp2plink &lt;- function(input=&quot;TLR5_flat_file.txt&quot;, output=&quot;TLR5.adsp&quot;) {
+
+        #load requisite packages       
+        library(data.table)
+        suppressWarnings(suppressMessages(library(dplyr)))  
+        
+        #While debugging it is helpful to set input and output values that will be called by the function
+        #It is also useful to employ the various str and print commands that are commented out below
+        #input &lt;- &quot;TLR5_flat_file.txt&quot;
+        #output &lt;- &quot;TLR5.adsp&quot;        
+        #Read in data on 4 common SORCS2 missense variants in the ADSP database        
+        
+        data &lt;- read.table(input, stringsAsFactors = FALSE, header=T)
+        #str(data); head(data); tail(data)
+
+        #Create output files
+        out1 &lt;- paste(output,sep=&quot;&quot;,&quot;.map&quot;)
+        out2 &lt;- paste(output,sep=&quot;&quot;,&quot;.fam&quot;)
+        out3 &lt;- paste(output,sep=&quot;&quot;,&quot;_cov.txt&quot;)
+        out4 &lt;- paste(output,sep=&quot;&quot;,&quot;.lgen&quot;)
+        out5 &lt;- paste(output,sep=&quot;&quot;,&quot;.plink.csv&quot;)
+        #print(out1);print(out2);print(out3);print(out4);print(out5)
+
+        #Filter, using dplyr, to include only subjects with: 
+        #Case.control = 2 or 1 corresponding to AD or CON, Sex = 0 or 1 (M or F), APOE = 22,23,24,33,34,or 44 
+        #Series = ADSP, Age &gt;= 65, Call = 11,12, or 22
+        library(dplyr)
+        dx_1 &lt;- c(2,1,0)
+        sex_1 &lt;- c(0,1)
+        apoe_1 &lt;- c(22,23,24,33,34,44)
+        series_1 &lt;- c(&quot;ADSP&quot;)
+        call_1 &lt;- c(11,12,22)
+        data &lt;- filter(data, Case.control %in% dx_1, Sex %in% sex_1, APOE %in% apoe_1, Series %in% series_1, Call %in% call_1)
+        data &lt;- filter (data, Age &gt;= 65)
+        #str(data);head(data);tail(data)
+
+        #Create PLINK map file
+        map &lt;- select(data, SNP_ID, Position)
+        map &lt;- mutate(map,morgans=0, chr=1)
+        map &lt;- rename(map, bp=Position, rs=SNP_ID)
+        map &lt;- select(map,chr,rs,morgans,bp)
+        map &lt;- distinct(map)
+        #snps1 &lt;- c(&quot;rs56243703&quot;,&quot;rs5744168&quot;,&quot;rs5744174&quot;,&quot;rs5744175&quot;,&quot;rs5744177&quot;)
+        snps &lt;- c(&quot;rs56243703&quot;,&quot;rs5744174&quot;,&quot;rs5744175&quot;,&quot;rs5744177&quot;)
+        map &lt;- filter(map,rs %in% snps )
+        print(map)
+        write.table(map,out1,sep='\t',quote=FALSE,row.names=F,col.names=F)
+
+        #Create variables for PLINK fam, cov, and lgen files
+        data &lt;- mutate(data, AFF=99, A1=99, A2=99, APOE4dose=99, APOE2dose=99, SEX=99, ADSP=0, FID=0, IID=as.character(Subject_ID), PID=0, MID=0)
+
+        data[data$Case.control == 0,][, &quot;AFF&quot;] &lt;- 1  #CON=0
+        data[data$Case.control == 1,][, &quot;AFF&quot;] &lt;- 2  #AD=1
+        data[data$Case.control == 2,][, &quot;AFF&quot;] &lt;- 2  #probable AD=2 are included as AD for PLINK analysis
+
+        data[data$Call == 11,][, &quot;A1&quot;] &lt;- 1  #1 = major allele, 2 = minor allele
+        data[data$Call == 12,][, &quot;A1&quot;] &lt;- 1  #split the allele calls as required by PLINK
+        data[data$Call == 22,][, &quot;A1&quot;] &lt;- 2  
+
+        data[data$Call == 11,][, &quot;A2&quot;] &lt;- 1
+        data[data$Call == 12,][, &quot;A2&quot;] &lt;- 2
+        data[data$Call == 22,][, &quot;A2&quot;] &lt;- 2
+
+        data[data$Sex == 0,][, &quot;SEX&quot;] &lt;- 1   #M=0
+        data[data$Sex == 1,][, &quot;SEX&quot;] &lt;- 2   #F=1
+
+        data[data$APOE == 22,][, &quot;APOE4dose&quot;] &lt;- 0 #code dose of A4 allele, 0,1,or2
+        data[data$APOE == 23,][, &quot;APOE4dose&quot;] &lt;- 0
+        data[data$APOE == 24,][, &quot;APOE4dose&quot;] &lt;- 1
+        data[data$APOE == 33,][, &quot;APOE4dose&quot;] &lt;- 0
+        data[data$APOE == 34,][, &quot;APOE4dose&quot;] &lt;- 1
+        data[data$APOE == 44,][, &quot;APOE4dose&quot;] &lt;- 2
+
+        data[data$APOE == 22,][, &quot;APOE2dose&quot;] &lt;- 2 #code dose of A4 allele, 0,1,or2
+        data[data$APOE == 23,][, &quot;APOE2dose&quot;] &lt;- 1
+        data[data$APOE == 24,][, &quot;APOE2dose&quot;] &lt;- 1
+        data[data$APOE == 33,][, &quot;APOE2dose&quot;] &lt;- 0
+        data[data$APOE == 34,][, &quot;APOE2dose&quot;] &lt;- 0
+        data[data$APOE == 44,][, &quot;APOE2dose&quot;] &lt;- 0
+
+        data[data$Series == &quot;ADSP&quot;,][, &quot;ADSP&quot;] &lt;- 1 #1 indicates subject is ADSP, otherwise would be 0
+        #For debugging, evaluate whether data has been formatted correctly by filtering and grouping appropriately
+        #y &lt;- data %&gt;% filter(SNP_ID==&quot;snps&quot;) %&gt;% group_by(SNP_ID,AFF,A1,A2,SEX,ADSP,FID) %&gt;% summarize(n=n())
+        #print(y)
+
+        #Create PLINK fam file
+        fam &lt;- select(data,FID,IID,PID,MID,SEX,AFF)
+        fam &lt;- distinct(fam)
+        #str(fam); head(fam); tail(fam)
+        write.table(fam,out2,sep='\t',quote=FALSE,row.names=F,col.names=F)
+        #TLR5fam_1=read.table(&quot;TLR5.adsp.fam&quot;, header = F)
+        #str(TLR5fam_1);head(TLR5fam_1);tail(TLR5fam_1)
+
+        #Create PLINK cov file; 
+        #Not sure why, but errors sometimes occurred in r when using &quot;TLR5.cov&quot;&quot; as output using write.table
+        #So I used &quot;TLR5cov.txt&quot; thereby avoiding this problem
+        cov &lt;- select(data,FID,IID,ADSP,SEX,Age,APOE4dose,APOE2dose)
+        cov &lt;- distinct(cov)
+        #For debugging make sure structure looks good
+        #str(cov)
+        write.table(cov,out3,sep='\t',quote=FALSE,row.names=F,col.names=T)
+        #For debugging read table back in and make sure it looks right
+        #TLR5cov_1=read.table(&quot;TLR5_1cov.txt&quot;, header = T)
+        #str(TLR5cov_1);head(TLR5cov_1); tail(TLR5cov_1)
+
+        #Create PLINK lgen file
+        lgen &lt;- select(data,FID,IID,SNP_ID,A1,A2)
+        #str(lgen)
+        write.table(lgen,out4,sep='\t',quote=FALSE,row.names=F,col.names=F)
+
+        #Create command strings for --assoc, --logistic, and --haplogistic
+        assoc &lt;- paste(&quot;plink&quot;,sep=&quot; &quot;,&quot;--lfile&quot;, output, &quot;--assoc&quot;, &quot;--ci 0.95&quot;, &quot;--out&quot;, output)
+        logistic &lt;- paste(&quot;plink&quot;,sep=&quot; &quot;,&quot;--lfile&quot;, output, &quot;--logistic&quot;, &quot;--covar&quot;, out3, &quot;--covar-name SEX,Age,APOE4dose,APOE2dose&quot;, &quot;--ci 0.95&quot;, &quot;--out&quot;, output)
+        haplog &lt;- paste(&quot;plink&quot;,sep=&quot; &quot;,&quot;--lfile&quot;, output, &quot;--hap-window 4 --hap-logistic&quot;, &quot;--covar&quot;, out3, &quot;--covar-name SEX,Age,APOE4dose,APOE2dose&quot;, &quot;--ci 0.95&quot;, &quot;--mhf 0.005 --out&quot;, output)
+
+        #Create names for the files that PLINK generates
+        assocfile &lt;- paste(output,sep=&quot;&quot;,&quot;.assoc&quot;)
+        logisfile &lt;- paste(output,sep=&quot;&quot;,&quot;.assoc.logistic&quot;)
+        haplogfile &lt;- paste(output,sep=&quot;&quot;,&quot;.assoc.hap.logistic&quot;)
+
+        #Run the PLINK analyses
+        system(assoc)
+        system(logistic)
+        system(haplog)
+
+        #Read in, format, and print the results from --assoc
+        f1 &lt;- read.table(assocfile, header=T)
+        #print(f1)
+        f1 &lt;- f1 %&gt;% select(CHR,SNP,BP,F_A, F_U, OR, P) %&gt;% rename(FREQ_AD=F_A, FREQ_CON=F_U, OR_assoc=OR, P_assoc=P)
+        print(f1,digits=2,row.names=F)
+        print(&quot;&quot;, quote=F)
+        #head(f1)
+
+        #Read in results for --logistic, combine with results from --logistic, format, print
+        f1 &lt;- f1 %&gt;% select(CHR,SNP,BP,FREQ_AD,FREQ_CON)
+        f2 &lt;- read.table(logisfile, header=T)
+        #print(f2)
+        f2 &lt;- f2 %&gt;% filter (TEST==&quot;ADD&quot;) %&gt;% select (SNP,NMISS,OR,L95,U95,P) %&gt;% rename(OR_logis=OR, P_logis=P)
+        #head(f2)
+        f3&lt;- left_join(f1,f2,by=&quot;SNP&quot;)
+        print(f3,digits=2,row.names=F)
+        print(&quot;&quot;, quote=F)
+        write.table(f3,out5,sep=&quot;,&quot;, quote=FALSE,row.names=F,col.names=T)
+
+        #Read in results for --hap-logistic, format, print
+        f4 &lt;- read.table(haplogfile, header=T)
+        f4 &lt;- f4 %&gt;% select(-NSNP,-NHAP,-STAT) %&gt;% arrange(desc(HAPLOTYPE))
+        print(f4,digits=2, row.names=F)
+        print(&quot;&quot;, quote=F)
+
+        #Run and read in results for &quot;--hap-logistic --hap-omnibus&quot;&quot;, format, print
+        hapomni &lt;- paste(&quot;plink&quot;,sep=&quot; &quot;,&quot;--lfile&quot;, output, &quot;--hap-window 4 --hap-logistic&quot;, &quot;--covar&quot;, out3, &quot;--covar-name SEX,Age,APOE4dose,APOE2dose&quot;, &quot;--ci 0.95&quot;, &quot;--mhf 0.005 --hap-omnibus --out&quot;, output)
+        system(hapomni)
+        f4 &lt;- read.table(haplogfile, header=T)
+        f4 &lt;- f4 %&gt;% rename(Pomni=P)
+        print(f4,digits=2, row.names=F)
+        print(&quot;&quot;, quote=F)
+}</code></pre>
 </div>
 <div id="function-comb2plink-to-create-combined-ydb-adsp-dataset-and-analyse-it" class="section level4">
 <h4>Function (comb2plink) to create combined ydb-adsp dataset and analyse it</h4>
 </div>
-<div id="analyze-sorcs2-dataset-from-ydb" class="section level4">
-<h4>Analyze SORCS2 dataset from Ydb</h4>
+<div id="analyze-tlr5-dataset-from-ydb" class="section level4">
+<h4>Analyze TLR5 dataset from Ydb</h4>
 <pre class="r"><code>ydb2plink(input=&quot;TLR5.csv&quot;, output=&quot;TLR5.Ydb&quot;)</code></pre>
 <pre><code>## 'data.frame':    101574 obs. of  13 variables:
 ##  $ SubKey     : int  2445 2162 14563 80228 82398 77267 81481 77319 77035 2163 ...
@@ -559,49 +740,48 @@ ydb2plink &lt;- function(input=&quot;TLR5.csv&quot;, output=&quot;TLR5.Ydb&quot;
 ## 2   1 rs56243703       0 223284069
 ## 3   1  rs5744177       0 223283837
 ## 4   1  rs5744175       0 223284444
-## 5   1  rs5744168       0 223285200
 ## Source: local data frame [12 x 5]
 ## Groups: BestCall, Series, Gend [?]
 ## 
 ##    BestCall Series  Gend    Dx     n
 ##       (int)  (chr) (chr) (chr) (int)
-## 1         1    AUT     F    AD  3217
-## 2         1    AUT     F   CON   381
-## 3         1    AUT     M    AD  2287
-## 4         1    AUT     M   CON   487
-## 5         1     JS     F    AD  1802
-## 6         1     JS     F   CON  1810
-## 7         1     JS     M    AD  1152
-## 8         1     JS     M   CON  1347
-## 9         1     RS     F    AD  1401
-## 10        1     RS     F   CON  5161
-## 11        1     RS     M    AD   861
-## 12        1     RS     M   CON  4424
+## 1         1    AUT     F    AD  2571
+## 2         1    AUT     F   CON   304
+## 3         1    AUT     M    AD  1827
+## 4         1    AUT     M   CON   389
+## 5         1     JS     F    AD  1441
+## 6         1     JS     F   CON  1447
+## 7         1     JS     M    AD   921
+## 8         1     JS     M   CON  1078
+## 9         1     RS     F    AD  1118
+## 10        1     RS     F   CON  4126
+## 11        1     RS     M    AD   689
+## 12        1     RS     M   CON  3536
 ## Source: local data frame [6 x 2]
 ## 
 ##    ApoE     n
 ##   (chr) (int)
-## 1    22   100
-## 2    23  2138
-## 3    24   563
-## 4    33 12340
-## 5    34  7656
-## 6    44  1533
-## 'data.frame':    24330 obs. of  6 variables:
-##  $ SubKey  : int  81368 609 18110 17663 610 82284 80078 17045 17046 11460 ...
+## 1    22    80
+## 2    23  1710
+## 3    24   449
+## 4    33  9864
+## 5    34  6118
+## 6    44  1226
+## 'data.frame':    19447 obs. of  6 variables:
+##  $ SubKey  : int  81368 609 18110 17663 610 17046 11460 82297 82297 82320 ...
 ##  $ Dx      : chr  &quot;AD&quot; &quot;CON&quot; &quot;CON&quot; &quot;CON&quot; ...
 ##  $ Gend    : chr  &quot;M&quot; &quot;M&quot; &quot;F&quot; &quot;F&quot; ...
 ##  $ DxAge   : chr  &quot;65&quot; &quot;65&quot; &quot;65&quot; &quot;65&quot; ...
 ##  $ ApoE    : chr  &quot;33&quot; &quot;33&quot; &quot;33&quot; &quot;33&quot; ...
 ##  $ BestCall: int  1 1 1 1 1 1 1 1 1 1 ...
-## 'data.frame':    4906 obs. of  6 variables:
-##  $ SubKey  : int  81368 609 18110 17663 610 82284 80078 17045 17046 11460 ...
+## 'data.frame':    4903 obs. of  6 variables:
+##  $ SubKey  : int  81368 609 18110 17663 610 17046 11460 82297 82320 82337 ...
 ##  $ Dx      : chr  &quot;AD&quot; &quot;CON&quot; &quot;CON&quot; &quot;CON&quot; ...
 ##  $ Gend    : chr  &quot;M&quot; &quot;M&quot; &quot;F&quot; &quot;F&quot; ...
 ##  $ DxAge   : chr  &quot;65&quot; &quot;65&quot; &quot;65&quot; &quot;65&quot; ...
 ##  $ ApoE    : chr  &quot;33&quot; &quot;33&quot; &quot;33&quot; &quot;33&quot; ...
 ##  $ BestCall: int  1 1 1 1 1 1 1 1 1 1 ...
-## Source: local data frame [239 x 8]
+## Source: local data frame [184 x 8]
 ## Groups: rs, AFF, SEX, APOE4dose, APOE2dose, A1 [?]
 ## 
 ##            rs   AFF   SEX APOE4dose APOE2dose    A1    A2     n
@@ -621,77 +801,99 @@ ydb2plink &lt;- function(input=&quot;TLR5.csv&quot;, output=&quot;TLR5.Ydb&quot;
 ## 1  rs56243703  1  1 4840
 ## 2  rs56243703  1  2   46
 ## 3  rs56243703  2  2    2
-## 4   rs5744168  1  1 4341
-## 5   rs5744168  1  2  519
-## 6   rs5744168  2  2   23
-## 7   rs5744174  1  1 1506
-## 8   rs5744174  1  2 2418
-## 9   rs5744174  2  2  888
-## 10  rs5744175  1  1 4796
-## 11  rs5744175  1  2   97
-## 12  rs5744177  1  1 4758
-## 13  rs5744177  1  2   96
-##            rs AFF    n
-## 1  rs56243703   1 2731
-## 2  rs56243703   2 2157
-## 3   rs5744168   1 2730
-## 4   rs5744168   2 2153
-## 5   rs5744174   1 2699
-## 6   rs5744174   2 2113
-## 7   rs5744175   1 2733
-## 8   rs5744175   2 2160
-## 9   rs5744177   1 2717
-## 10  rs5744177   2 2137
-##            rs SEX    n
-## 1  rs56243703   1 2120
-## 2  rs56243703   2 2768
-## 3   rs5744168   1 2118
-## 4   rs5744168   2 2765
-## 5   rs5744174   1 2087
-## 6   rs5744174   2 2725
-## 7   rs5744175   1 2124
-## 8   rs5744175   2 2769
-## 9   rs5744177   1 2109
-## 10  rs5744177   2 2745
-##   APOE4dose APOE2dose     n
-## 1         0         0 12340
-## 2         0         1  2138
-## 3         0         2   100
-## 4         1         0  7656
-## 5         1         1   563
-## 6         2         0  1533
+## 4   rs5744174  1  1 1506
+## 5   rs5744174  1  2 2418
+## 6   rs5744174  2  2  888
+## 7   rs5744175  1  1 4796
+## 8   rs5744175  1  2   97
+## 9   rs5744177  1  1 4758
+## 10  rs5744177  1  2   96
+##           rs AFF    n
+## 1 rs56243703   1 2731
+## 2 rs56243703   2 2157
+## 3  rs5744174   1 2699
+## 4  rs5744174   2 2113
+## 5  rs5744175   1 2733
+## 6  rs5744175   2 2160
+## 7  rs5744177   1 2717
+## 8  rs5744177   2 2137
+##           rs SEX    n
+## 1 rs56243703   1 2120
+## 2 rs56243703   2 2768
+## 3  rs5744174   1 2087
+## 4  rs5744174   2 2725
+## 5  rs5744175   1 2124
+## 6  rs5744175   2 2769
+## 7  rs5744177   1 2109
+## 8  rs5744177   2 2745
+##   APOE4dose APOE2dose    n
+## 1         0         0 9864
+## 2         0         1 1710
+## 3         0         2   80
+## 4         1         0 6118
+## 5         1         1  449
+## 6         2         0 1226
 ##  CHR        SNP        BP FREQ_AD FREQ_CON OR_assoc P_assoc
 ##    1  rs5744177 223283837  0.0080   0.0114     0.69   0.088
 ##    1 rs56243703 223284069  0.0049   0.0053     0.92   0.761
 ##    1  rs5744175 223284444  0.0081   0.0113     0.71   0.108
 ##    1  rs5744174 223284528  0.4309   0.4396     0.97   0.393
-##    1  rs5744168 223285200  0.0613   0.0551     1.12   0.194
 ## [1] 
 ##  CHR        SNP        BP FREQ_AD FREQ_CON NMISS OR_logis  L95 U95 P_logis
 ##    1  rs5744177 223283837  0.0080   0.0114  4854     0.53 0.31 0.9   0.019
 ##    1 rs56243703 223284069  0.0049   0.0053  4888     1.21 0.59 2.5   0.597
 ##    1  rs5744175 223284444  0.0081   0.0113  4893     0.53 0.31 0.9   0.019
 ##    1  rs5744174 223284528  0.4309   0.4396  4812     0.94 0.85 1.1   0.293
-##    1  rs5744168 223285200  0.0613   0.0551  4883     1.30 1.04 1.6   0.018
 ## [1] 
 ##  CHR       BP1       BP2      SNP1      SNP2 HAPLOTYPE      F   OR     P
-##    1 223283837 223285200 rs5744177 rs5744168     21221 0.0099 0.53 0.020
-##    1 223283837 223285200 rs5744177 rs5744168     11122 0.0580 1.30 0.016
-##    1 223283837 223285200 rs5744177 rs5744168     11121 0.3680 0.90 0.062
-##    1 223283837 223285200 rs5744177 rs5744168     11111 0.5590 1.06 0.293
+##    1 223283837 223284528 rs5744177 rs5744174      2122 0.0100 0.53 0.019
+##    1 223283837 223284528 rs5744177 rs5744174      1211 0.0051 1.22 0.590
+##    1 223283837 223284528 rs5744177 rs5744174      1112 0.4260 0.96 0.502
+##    1 223283837 223284528 rs5744177 rs5744174      1111 0.5590 1.06 0.281
 ## [1] 
-##  NSNP NHAP CHR       BP1       BP2      SNP1      SNP2 STAT  Pomni
-##     5    4   1 223283837 223285200 rs5744177 rs5744168   14 0.0034
+##  NSNP NHAP CHR       BP1       BP2      SNP1      SNP2 STAT Pomni
+##     4    4   1 223283837 223284528 rs5744177 rs5744174  6.4 0.091
 ## [1]</code></pre>
 <pre class="r"><code>#print(assoc)</code></pre>
 </div>
-<div id="analyze-sorcs2-dataset-from-adsp" class="section level4">
-<h4>Analyze SORCS2 dataset from ADSP</h4>
-<pre class="r"><code>adsp2plink(input=&quot;SORCS2_ff.txt&quot;, output=&quot;SORCS2.adsp&quot;)
-#print(assoc)</code></pre>
+<div id="analyze-tlr5-dataset-from-adsp" class="section level4">
+<h4>Analyze TLR5 dataset from ADSP</h4>
+<pre class="r"><code>adsp2plink(input=&quot;TLR5_flat_file 3000.txt&quot;, output=&quot;TLR5_3000.adsp&quot;)</code></pre>
+<pre><code>##   chr         rs morgans        bp
+## 1   1  rs5744177       0 223283837
+## 2   1 rs56243703       0 223284069
+## 3   1  rs5744175       0 223284444
+## 4   1  rs5744174       0 223284528
+##  CHR        SNP        BP FREQ_AD FREQ_CON OR_assoc P_assoc
+##    1  rs5744177 223283837  0.0100   0.0105     0.95   0.840
+##    1 rs56243703 223284069  0.0048   0.0056     0.86   0.684
+##    1  rs5744175 223284444  0.0100   0.0105     0.95   0.838
+##    1  rs5744174 223284528  0.4181   0.4446     0.90   0.045
+## [1] 
+##  CHR        SNP        BP FREQ_AD FREQ_CON NMISS OR_logis  L95  U95
+##    1  rs5744177 223283837  0.0100   0.0105  2867     0.86 0.45 1.64
+##    1 rs56243703 223284069  0.0048   0.0056  2867     1.08 0.45 2.56
+##    1  rs5744175 223284444  0.0100   0.0105  2866     0.86 0.45 1.64
+##    1  rs5744174 223284528  0.4181   0.4446  2867     0.88 0.77 0.99
+##  P_logis
+##    0.651
+##    0.865
+##    0.650
+##    0.039
+## [1] 
+##  CHR       BP1       BP2      SNP1      SNP2 HAPLOTYPE      F   OR     P
+##    1 223283837 223284528 rs5744177 rs5744174      2122 0.0103 0.86 0.651
+##    1 223283837 223284528 rs5744177 rs5744174      1211 0.0052 1.08 0.865
+##    1 223283837 223284528 rs5744177 rs5744174      1112 0.4230 0.88 0.048
+##    1 223283837 223284528 rs5744177 rs5744174      1111 0.5620 1.14 0.041
+## [1] 
+##  NSNP NHAP CHR       BP1       BP2      SNP1      SNP2 STAT Pomni
+##     4    4   1 223283837 223284528 rs5744177 rs5744174  4.3  0.23
+## [1]</code></pre>
+<pre class="r"><code>#print(assoc)</code></pre>
 </div>
-<div id="analyze-combined-ydbadsp-sorcs2-dataset" class="section level4">
-<h4>Analyze combined (Ydb+ADSP) SORCS2 dataset</h4>
+<div id="analyze-combined-ydbadsp-tlr5-dataset" class="section level4">
+<h4>Analyze combined (Ydb+ADSP) TLR5 dataset</h4>
 <pre class="r"><code>comb2plink(output=&quot;SORCS2.comb&quot;)
 #print(assoc)</code></pre>
 </div>
